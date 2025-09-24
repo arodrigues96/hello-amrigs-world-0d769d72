@@ -12,11 +12,11 @@ export const questions25_2023: Question[] = [
   {
     id: 1,
     area: "Clínica Médica",
-    question: "A dupla antiagregação plaquetária deve ser mantida:
+    question: `A dupla antiagregação plaquetária deve ser mantida:
 I. Indefinidamente para pacientes com doença arterial periférica aterosclerótica.
 II. Por pelo menos 12 meses após episódio de infarto agudo do miocárdio com angioplastia percutânea primária.
 III. Indefinidamente em pacientes diabéticos que tiveram um episódio cerebrovascular isquêmico.
-Quais estão corretas?",
+Quais estão corretas?`,
     options: [
       "Apenas I.",
       "Apenas II.",
@@ -107,11 +107,11 @@ Quais estão corretas?",
   {
     id: 8,
     area: "Cirurgia Geral",
-    question: "Paciente de 45 anos foi submetida à histerectomia total por miomatose. No pós-operatório imediato, o médico residente prescreveu para a analgesia quetamina, cetorolaco, ibuprofeno e 1 mg de morfina intravenosa até de 3/3 horas em caso de dor forte. Após algumas horas, a paciente começou a ter alucinações na sala de recuperação. Para corrigir essa prescrição, o médico deve:
+    question: `Paciente de 45 anos foi submetida à histerectomia total por miomatose. No pós-operatório imediato, o médico residente prescreveu para a analgesia quetamina, cetorolaco, ibuprofeno e 1 mg de morfina intravenosa até de 3/3 horas em caso de dor forte. Após algumas horas, a paciente começou a ter alucinações na sala de recuperação. Para corrigir essa prescrição, o médico deve:
 I. Suspender ou reduzir a dose de quetamina, provável causa das alucinações.
 II. Escolher apenas uma das drogas anti-inflamatórias, pois há sobreposição de cetorolaco e ibuprofeno.
 III. Acrescentar gabapentina para reduzir a necessidade de opioides.
-Quais estão corretas?",
+Quais estão corretas?`,
     options: [
       "Apenas I.",
       "Apenas II.",
@@ -163,11 +163,11 @@ Quais estão corretas?",
   {
     id: 12,
     area: "Ginecologia e Obstetrícia",
-    question: "Em relação ao acretismo placentário diagnosticado na cesariana de emergência, analise as assertivas a seguir:
+    question: `Em relação ao acretismo placentário diagnosticado na cesariana de emergência, analise as assertivas a seguir:
 I. A histerotomia deve ser realizada fora da área placentária.
 II. A dequitação manual cuidadosa está indicada.
 III. A histerectomia será realizada com a placenta in situ.
-Quais estão corretas?",
+Quais estão corretas?`,
     options: [
       "Apenas I.",
       "Apenas II.",
@@ -522,10 +522,10 @@ export const questions25_2024: Question[] = [
   {
     id: 14,
     area: "Ginecologia e Obstetrícia",
-    question: "São opções terapêuticas para os sintomas vasomotores da síndrome climatérica:
+    question: `São opções terapêuticas para os sintomas vasomotores da síndrome climatérica:
 I. Modificações de estilo de vida: roupas leves, temperatura ambiente mais baixa e não fumar.
 II. Terapia de reposição hormonal sistêmica.
-III. Uso de inibidores seletivos da recaptação de serotonina e inibidores seletivos de recaptação da serotonina e noradrenalina.",
+III. Uso de inibidores seletivos da recaptação de serotonina e inibidores seletivos de recaptação da serotonina e noradrenalina.`,
     options: [
       "Apenas I.",
       "Apenas II.",
@@ -713,7 +713,7 @@ export const quizData = {
     title: "Simulado Gratuito - 25 Questões 2023",
     description: "25 questões da prova AMRIGS 2023 para você testar seus conhecimentos gratuitamente",
     year: "2023",
-    type: "free_25_2023" as const,
+    type: "free_25" as const,
     isPremium: false,
     questions: getRandomQuestions(questions25_2023, 25)
   },
@@ -721,7 +721,7 @@ export const quizData = {
     title: "Simulado Gratuito - 25 Questões 2024",
     description: "25 questões da prova AMRIGS 2024 para você testar seus conhecimentos gratuitamente",
     year: "2024",
-    type: "free_25_2024" as const,
+    type: "free_25" as const,
     isPremium: false,
     questions: getRandomQuestions(questions25_2024, 25)
   },
@@ -729,7 +729,7 @@ export const quizData = {
     title: "Simulado Premium - 100 Questões 2023",
     description: "Simulado completo com 100 questões da prova AMRIGS 2023. Acesso mediante pagamento.",
     year: "2023",
-    type: "premium_100_2023" as const,
+    type: "premium_100" as const,
     isPremium: true,
     questions: getRandomQuestions(questions100_2023, 100)
   },
@@ -737,7 +737,7 @@ export const quizData = {
     title: "Simulado Premium - 100 Questões 2024",
     description: "Simulado completo com 100 questões da prova AMRIGS 2024. Acesso mediante pagamento.",
     year: "2024",
-    type: "premium_100_2024" as const,
+    type: "premium_100" as const,
     isPremium: true,
     questions: getRandomQuestions(questions100_2024, 100)
   }
