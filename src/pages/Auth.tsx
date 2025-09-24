@@ -5,9 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Stethoscope, Mail, Lock, User } from "lucide-react";
 import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { z } from "zod";
+import logo from "@/assets/logo.png";
 
 const signUpSchema = z.object({
   email: z.string().email("Email inválido").trim(),
@@ -103,14 +105,17 @@ const Auth = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 relative">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-primary rounded-lg flex items-center justify-center mx-auto mb-4">
-            <Stethoscope className="w-8 h-8 text-primary-foreground" />
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <img src={logo} alt="ResidentLabs" className="w-16 h-16" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground">MedGuru</h1>
+          <h1 className="text-3xl font-bold text-foreground">ResidentLabs</h1>
           <p className="text-muted-foreground mt-2">
             Sua plataforma de simulados médicos
           </p>

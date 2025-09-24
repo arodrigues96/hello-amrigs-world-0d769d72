@@ -4,11 +4,13 @@ import { QuizCard } from "@/components/QuizCard";
 import { QuizInterface } from "@/components/QuizInterface";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { PaymentDialog } from "@/components/PaymentDialog";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { quizData } from "@/data/questions";
 import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
 import { Stethoscope, BookOpen, Target, Users, LogOut, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import logo from "@/assets/logo.png";
 
 type ViewState = 'home' | 'quiz' | 'results' | 'history';
 
@@ -120,16 +122,15 @@ const Index = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <Stethoscope className="w-6 h-6 text-primary-foreground" />
-              </div>
+              <img src={logo} alt="ResidentLabs" className="w-10 h-10 rounded-lg" />
               <div>
-                <h1 className="text-xl font-bold text-foreground">MedGuru</h1>
+                <h1 className="text-xl font-bold text-foreground">ResidentLabs</h1>
                 <p className="text-sm text-muted-foreground">Simulados Médicos</p>
               </div>
             </div>
             
             <div className="flex items-center gap-4">
+              <ThemeToggle />
               {user && (
                 <Card className="border-border bg-card/50 backdrop-blur-sm">
                   <CardContent className="pt-4">
@@ -178,7 +179,7 @@ const Index = () => {
         <div className="text-center space-y-6 mb-12">
           <div className="space-y-4">
             <h2 className="text-4xl font-bold text-foreground">
-              MedGuru - Simulados Médicos
+              ResidentLabs - Simulados Médicos
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               Prepare-se para concursos médicos com nossos simulados baseados em provas da AMRIGS
@@ -304,14 +305,14 @@ const Index = () => {
         <div className="container mx-auto px-4 py-8">
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center gap-2">
-              <Stethoscope className="w-5 h-5 text-primary" />
-              <span className="font-semibold text-foreground">MedGuru</span>
+              <img src={logo} alt="ResidentLabs" className="w-5 h-5" />
+              <span className="font-semibold text-foreground">ResidentLabs</span>
             </div>
             <p className="text-sm text-muted-foreground">
               Sua plataforma completa de simulados médicos
             </p>
             <p className="text-xs text-muted-foreground">
-              © 2024 MedGuru. Todos os direitos reservados.
+              © 2024 ResidentLabs. Todos os direitos reservados.
             </p>
           </div>
         </div>
