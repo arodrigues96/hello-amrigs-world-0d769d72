@@ -205,29 +205,38 @@ export const sampleQuestions100_2023: Question[] = [
   // ... mais questões podem ser adicionadas aqui
 ];
 
+// Função para embaralhar array
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+// Função para pegar questões aleatórias
+export const getRandomQuestions = (count: number) => {
+  const allQuestions = [...sampleQuestions25_2024, ...sampleQuestions25_2023];
+  const shuffled = shuffleArray(allQuestions);
+  return shuffled.slice(0, count);
+};
+
 export const quizData = {
-  "25-questoes-2024": {
-    title: "25 Questões AMRIGS 2024",
-    description: "Simulado com 25 questões das principais áreas médicas baseado no concurso AMRIGS 2024",
+  free25: {
+    title: "Simulado Gratuito - 25 Questões",
+    description: "25 questões aleatórias para você testar seus conhecimentos gratuitamente",
     year: "2024",
-    questions: sampleQuestions25_2024
+    type: "free_25" as const,
+    isPremium: false,
+    questions: getRandomQuestions(25)
   },
-  "100-questoes-2024": {
-    title: "100 Questões AMRIGS 2024",
-    description: "Simulado completo com 100 questões das principais áreas médicas baseado no concurso AMRIGS 2024",
+  premium100: {
+    title: "Simulado Premium - 100 Questões",
+    description: "Simulado completo com 100 questões baseadas nas provas da AMRIGS. Acesso mediante pagamento.",
     year: "2024", 
-    questions: sampleQuestions100_2024
-  },
-  "25-questoes-2023": {
-    title: "25 Questões AMRIGS 2023",
-    description: "Simulado com 25 questões das principais áreas médicas baseado no concurso AMRIGS 2023",
-    year: "2023",
-    questions: sampleQuestions25_2023
-  },
-  "100-questoes-2023": {
-    title: "100 Questões AMRIGS 2023", 
-    description: "Simulado completo com 100 questões das principais áreas médicas baseado no concurso AMRIGS 2023",
-    year: "2023",
-    questions: sampleQuestions100_2023
+    type: "premium_100" as const,
+    isPremium: true,
+    questions: [...sampleQuestions100_2024, ...sampleQuestions100_2023].slice(0, 100)
   }
 };

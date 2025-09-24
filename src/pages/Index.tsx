@@ -1,41 +1,52 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { QuizCard } from "@/components/QuizCard";
-import { AuthCard } from "@/components/AuthCard";
 import { QuizInterface } from "@/components/QuizInterface";
 import { ResultsScreen } from "@/components/ResultsScreen";
+import { PaymentDialog } from "@/components/PaymentDialog";
 import { quizData } from "@/data/questions";
-import { useAuth } from "@/hooks/useAuth";
-import { Stethoscope, BookOpen, Target, Users } from "lucide-react";
+import { useSupabaseAuth } from "@/hooks/useSupabaseAuth";
+import { Stethoscope, BookOpen, Target, Users, LogOut, Crown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 
 type ViewState = 'home' | 'quiz' | 'results' | 'history';
 
 const Index = () => {
-  const { user, login, logout, saveAttempt, getHistory } = useAuth();
+  const { user, loading, signOut, saveQuizAttempt, getUserAttempts, isPremium } = useSupabaseAuth();
   const [currentView, setCurrentView] = useState<ViewState>('home');
   const [selectedQuiz, setSelectedQuiz] = useState<string | null>(null);
   const [quizResults, setQuizResults] = useState<{
     score: number;
     answers: number[];
   } | null>(null);
+  const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
+
+  // Redirect to auth if not logged in
+  if (!loading && !user) {
+    return <Navigate to="/auth" replace />;
+  }
 
   const handleStartQuiz = (quizKey: string) => {
-    if (!user) {
-      login();
+    const quiz = quizData[quizKey as keyof typeof quizData];
+    
+    // Check if quiz is premium and user doesn't have premium access
+    if (quiz.isPremium && !isPremium) {
+      setPaymentDialogOpen(true);
       return;
     }
+    
     setSelectedQuiz(quizKey);
     setCurrentView('quiz');
   };
 
-  const handleQuizComplete = (score: number, answers: number[]) => {
+  const handleQuizComplete = async (score: number, answers: number[]) => {
     if (!selectedQuiz) return;
     
     const quiz = quizData[selectedQuiz as keyof typeof quizData];
     
-    // Salvar cada resposta no histórico
-    quiz.questions.forEach((question, index) => {
-      saveAttempt(question.id, question.area, answers[index], question.correct);
-    });
+    // Salvar tentativa do quiz
+    await saveQuizAttempt(quiz.type, score, quiz.questions.length, answers);
 
     setQuizResults({ score, answers });
     setCurrentView('results');
@@ -52,12 +63,27 @@ const Index = () => {
     setQuizResults(null);
   };
 
-  const handleViewHistory = () => {
-    // Em uma implementação completa, criaria uma página de histórico
-    const history = getHistory();
+  const handleViewHistory = async () => {
+    const history = await getUserAttempts();
     console.log('Histórico do usuário:', history);
     alert(`Você tem ${history.length} tentativas registradas. Confira o console para mais detalhes.`);
   };
+
+  const handlePaymentComplete = () => {
+    // Em um ambiente real, isso atualizaria o status premium do usuário no banco
+    window.location.reload(); // Recarrega para atualizar o status
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Stethoscope className="w-12 h-12 text-primary mx-auto mb-4 animate-pulse" />
+          <p className="text-muted-foreground">Carregando...</p>
+        </div>
+      </div>
+    );
+  }
 
   // Renderizar conteúdo baseado no estado atual
   if (currentView === 'quiz' && selectedQuiz) {
@@ -98,18 +124,49 @@ const Index = () => {
                 <Stethoscope className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground">AMRIGS</h1>
+                <h1 className="text-xl font-bold text-foreground">MedGuru</h1>
                 <p className="text-sm text-muted-foreground">Simulados Médicos</p>
               </div>
             </div>
             
-            <div className="w-80">
-              <AuthCard
-                user={user}
-                onLogin={login}
-                onLogout={logout}
-                onViewHistory={handleViewHistory}
-              />
+            <div className="flex items-center gap-4">
+              {user && (
+                <Card className="border-border bg-card/50 backdrop-blur-sm">
+                  <CardContent className="pt-4">
+                    <div className="flex items-center gap-3">
+                      <div className="text-right">
+                        <p className="text-sm font-medium text-foreground">{user.email}</p>
+                        <div className="flex items-center gap-2">
+                          {isPremium ? (
+                            <>
+                              <Crown className="w-4 h-4 text-yellow-500" />
+                              <span className="text-xs text-yellow-600">Premium</span>
+                            </>
+                          ) : (
+                            <span className="text-xs text-muted-foreground">Gratuito</span>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={handleViewHistory}
+                        >
+                          Histórico
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          onClick={signOut}
+                        >
+                          <LogOut className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
             </div>
           </div>
         </div>
@@ -121,12 +178,31 @@ const Index = () => {
         <div className="text-center space-y-6 mb-12">
           <div className="space-y-4">
             <h2 className="text-4xl font-bold text-foreground">
-              Simulados AMRIGS
+              MedGuru - Simulados Médicos
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Prepare-se para o concurso da Associação Médica do Rio Grande do Sul 
-              com nossos simulados baseados em provas anteriores
+              Prepare-se para concursos médicos com nossos simulados baseados em provas da AMRIGS
             </p>
+            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-6 max-w-2xl mx-auto">
+              <div className="text-center space-y-2">
+                <h3 className="text-lg font-semibold text-foreground">Planos Disponíveis</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  <div className="bg-background/50 rounded-lg p-4">
+                    <h4 className="font-medium text-foreground">Gratuito</h4>
+                    <p className="text-2xl font-bold text-primary">25 questões</p>
+                    <p className="text-sm text-muted-foreground">Acesso livre</p>
+                  </div>
+                  <div className="bg-background/50 rounded-lg p-4 border-2 border-primary/20">
+                    <h4 className="font-medium text-foreground flex items-center gap-2">
+                      <Crown className="w-4 h-4 text-yellow-500" />
+                      Premium
+                    </h4>
+                    <p className="text-2xl font-bold text-primary">100 questões</p>
+                    <p className="text-sm text-yellow-600 font-medium">Apenas R$ 25,00</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           
           {/* Stats */}
@@ -169,6 +245,8 @@ const Index = () => {
                 year={quiz.year}
                 questionCount={quiz.questions.length}
                 onClick={() => handleStartQuiz(key)}
+                isPremium={quiz.isPremium}
+                userHasPremium={isPremium}
               />
             ))}
           </div>
@@ -214,19 +292,26 @@ const Index = () => {
         </div>
       </main>
 
+      {/* Payment Dialog */}
+      <PaymentDialog
+        open={paymentDialogOpen}
+        onOpenChange={setPaymentDialogOpen}
+        onPaymentComplete={handlePaymentComplete}
+      />
+
       {/* Footer */}
       <footer className="border-t border-border bg-card/30 mt-16">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center gap-2">
               <Stethoscope className="w-5 h-5 text-primary" />
-              <span className="font-semibold text-foreground">AMRIGS Simulados</span>
+              <span className="font-semibold text-foreground">MedGuru</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Preparação completa para o concurso da Associação Médica do Rio Grande do Sul
+              Sua plataforma completa de simulados médicos
             </p>
             <p className="text-xs text-muted-foreground">
-              © 2024 AMRIGS Simulados. Todos os direitos reservados.
+              © 2024 MedGuru. Todos os direitos reservados.
             </p>
           </div>
         </div>

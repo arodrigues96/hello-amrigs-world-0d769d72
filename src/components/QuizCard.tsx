@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, FileText, Users } from "lucide-react";
+import { Calendar, FileText, Users, Crown, Lock } from "lucide-react";
 
 interface QuizCardProps {
   title: string;
@@ -8,15 +8,21 @@ interface QuizCardProps {
   year: string;
   questionCount: number;
   onClick: () => void;
+  isPremium?: boolean;
+  userHasPremium?: boolean;
 }
 
-export const QuizCard = ({ title, description, year, questionCount, onClick }: QuizCardProps) => {
+export const QuizCard = ({ title, description, year, questionCount, onClick, isPremium = false, userHasPremium = false }: QuizCardProps) => {
+  const isLocked = isPremium && !userHasPremium;
   return (
-    <Card className="medical-card border-border hover:border-ring transition-all duration-300 group cursor-pointer">
+    <Card className={`medical-card border-border hover:border-ring transition-all duration-300 group cursor-pointer ${isLocked ? 'opacity-75' : ''}`}>
       <CardHeader className="space-y-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">
+          <CardTitle className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
             {title}
+            {isPremium && (
+              <Crown className="w-5 h-5 text-yellow-500" />
+            )}
           </CardTitle>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Calendar className="w-4 h-4" />
@@ -39,13 +45,25 @@ export const QuizCard = ({ title, description, year, questionCount, onClick }: Q
           </div>
         </div>
         <Button 
-          variant="medical" 
+          variant={isLocked ? "outline" : "medical"} 
           size="lg" 
           className="w-full"
           onClick={onClick}
         >
-          Iniciar Simulado
+          {isLocked ? (
+            <>
+              <Lock className="w-4 h-4 mr-2" />
+              Upgrade para Premium - R$ 25,00
+            </>
+          ) : (
+            "Iniciar Simulado"
+          )}
         </Button>
+        {isPremium && !isLocked && (
+          <p className="text-xs text-center text-muted-foreground">
+            Acesso premium ativo
+          </p>
+        )}
       </CardContent>
     </Card>
   );
