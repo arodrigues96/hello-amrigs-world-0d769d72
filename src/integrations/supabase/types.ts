@@ -14,36 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      test_results: {
-        Row: {
-          completed_at: string
-          created_at: string
-          details: Json | null
-          id: string
-          score: number
-          test_type: string
-          user_id: string
-        }
-        Insert: {
-          completed_at?: string
-          created_at?: string
-          details?: Json | null
-          id?: string
-          score: number
-          test_type: string
-          user_id: string
-        }
-        Update: {
-          completed_at?: string
-          created_at?: string
-          details?: Json | null
-          id?: string
-          score?: number
-          test_type?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Views: {
       [_ in never]: never
