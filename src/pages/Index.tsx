@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { QuizCard } from "@/components/QuizCard";
+import { QuizMenu } from "@/components/QuizMenu";
 import { QuizInterface } from "@/components/QuizInterface";
 import { ResultsScreen } from "@/components/ResultsScreen";
 import { PaymentDialog } from "@/components/PaymentDialog";
@@ -226,32 +226,11 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Quiz Cards */}
-        <div className="space-y-8">
-          <div className="text-center">
-            <h3 className="text-2xl font-semibold text-foreground mb-2">
-              Escolha seu Simulado
-            </h3>
-            <p className="text-muted-foreground">
-              Selecione o simulado que melhor se adequa ao seu nível de preparação
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {Object.entries(quizData).map(([key, quiz]) => (
-              <QuizCard
-                key={key}
-                title={quiz.title}
-                description={quiz.description}
-                year={quiz.year}
-                questionCount={quiz.questions.length}
-                onClick={() => handleStartQuiz(key)}
-                isPremium={quiz.isPremium}
-                userHasPremium={isPremium}
-              />
-            ))}
-          </div>
-        </div>
+        {/* Quiz Menu */}
+        <QuizMenu 
+          onSelectQuiz={handleStartQuiz}
+          userHasPremium={isPremium}
+        />
 
         {/* Features */}
         <div className="mt-16 text-center space-y-8">
