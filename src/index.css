@@ -8,73 +8,137 @@
 
 @layer base {
   :root {
-    /* Medical Theme - Dark Blue Professional */
-    --background: 213 32% 8%;           /* #0e1a2b */
-    --foreground: 210 20% 95%;          /* #f0f2f7 */
+    /* Light Theme - Default */
+    --background: 0 0% 100%;            /* White */
+    --foreground: 222.2 84% 4.9%;       /* Dark text */
 
-    --card: 213 28% 14%;                /* #1a2b47 */
-    --card-foreground: 210 20% 95%;     /* #f0f2f7 */
+    --card: 0 0% 100%;                  /* White */
+    --card-foreground: 222.2 84% 4.9%;  /* Dark text */
 
-    --popover: 213 28% 14%;             /* #1a2b47 */
-    --popover-foreground: 210 20% 95%;  /* #f0f2f7 */
+    --popover: 0 0% 100%;               /* White */
+    --popover-foreground: 222.2 84% 4.9%; /* Dark text */
 
-    --primary: 214 52% 35%;             /* #3a67af */
-    --primary-foreground: 210 20% 95%;  /* #f0f2f7 */
+    --primary: 214 52% 35%;             /* Blue */
+    --primary-foreground: 210 40% 98%;  /* Light text */
 
-    --secondary: 214 35% 25%;           /* #244063 */
-    --secondary-foreground: 210 20% 95%; /* #f0f2f7 */
+    --secondary: 210 40% 96%;           /* Light gray */
+    --secondary-foreground: 222.2 84% 4.9%; /* Dark text */
 
-    --muted: 214 28% 20%;               /* #1b2c47 */
-    --muted-foreground: 213 15% 70%;    /* #aab4c7 */
+    --muted: 210 40% 96%;               /* Light gray */
+    --muted-foreground: 215.4 16.3% 46.9%; /* Gray text */
 
-    --accent: 214 45% 30%;              /* #2a4c8c */
-    --accent-foreground: 210 20% 95%;   /* #f0f2f7 */
+    --accent: 210 40% 96%;              /* Light gray */
+    --accent-foreground: 222.2 84% 4.9%; /* Dark text */
 
-    --destructive: 0 65% 55%;           /* #c74545 */
-    --destructive-foreground: 210 20% 95%; /* #f0f2f7 */
+    --destructive: 0 84.2% 60.2%;       /* Red */
+    --destructive-foreground: 210 40% 98%; /* Light text */
 
-    --success: 142 50% 35%;             /* #2d7a3d */
-    --success-foreground: 210 20% 95%;  /* #f0f2f7 */
+    --success: 142 50% 35%;             /* Green */
+    --success-foreground: 210 40% 98%;  /* Light text */
 
-    --warning: 45 85% 60%;              /* #f5a623 */
-    --warning-foreground: 213 32% 8%;   /* #0e1a2b */
+    --warning: 45 85% 60%;              /* Yellow */
+    --warning-foreground: 222.2 84% 4.9%; /* Dark text */
 
-    --border: 214 25% 25%;              /* #253a55 */
-    --input: 214 25% 25%;               /* #253a55 */
-    --ring: 214 52% 50%;                /* #5a8dd4 */
+    --border: 214.3 31.8% 91.4%;       /* Light border */
+    --input: 214.3 31.8% 91.4%;        /* Light input */
+    --ring: 214 52% 50%;                /* Blue ring */
 
     --radius: 0.75rem;
 
     /* Medical specific colors */
-    --medical-primary: 214 52% 35%;     /* #3a67af */
-    --medical-secondary: 214 35% 25%;   /* #244063 */
-    --medical-accent: 214 45% 30%;      /* #2a4c8c */
-    --medical-correct: 142 50% 35%;     /* #2d7a3d */
-    --medical-incorrect: 0 65% 55%;     /* #c74545 */
-    --medical-flag: 45 85% 60%;         /* #f5a623 */
+    --medical-primary: 214 52% 35%;     /* Blue */
+    --medical-secondary: 214 35% 25%;   /* Dark blue */
+    --medical-accent: 214 45% 30%;      /* Medium blue */
+    --medical-correct: 142 50% 35%;     /* Green */
+    --medical-incorrect: 0 65% 55%;     /* Red */
+    --medical-flag: 45 85% 60%;         /* Yellow */
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--medical-accent)));
     --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
     --gradient-medical: linear-gradient(135deg, hsl(var(--medical-primary)), hsl(var(--medical-accent)));
 
     /* Shadows */
-    --shadow-medical: 0 10px 30px -10px hsl(var(--primary) / 0.4);
-    --shadow-card: 0 8px 25px -8px hsl(var(--background) / 0.8);
-    --shadow-button: 0 6px 15px hsl(var(--primary) / 0.6);
+    --shadow-medical: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+    --shadow-card: 0 8px 25px -8px hsl(var(--primary) / 0.1);
+    --shadow-button: 0 6px 15px hsl(var(--primary) / 0.4);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --sidebar-background: 213 28% 14%;
-    --sidebar-foreground: 210 20% 95%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 222.2 84% 4.9%;
     --sidebar-primary: 214 52% 35%;
-    --sidebar-primary-foreground: 210 20% 95%;
-    --sidebar-accent: 214 35% 25%;
-    --sidebar-accent-foreground: 210 20% 95%;
-    --sidebar-border: 214 25% 25%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222.2 84% 4.9%;
+    --sidebar-border: 214.3 31.8% 91.4%;
     --sidebar-ring: 214 52% 50%;
+  }
+
+  .dark {
+    /* Dark Theme */
+    --background: 222.2 84% 4.9%;       /* Dark background */
+    --foreground: 210 40% 98%;          /* Light text */
+
+    --card: 222.2 84% 4.9%;             /* Dark card */
+    --card-foreground: 210 40% 98%;     /* Light text */
+
+    --popover: 222.2 84% 4.9%;          /* Dark popover */
+    --popover-foreground: 210 40% 98%;  /* Light text */
+
+    --primary: 214 52% 45%;             /* Brighter blue */
+    --primary-foreground: 222.2 84% 4.9%; /* Dark text */
+
+    --secondary: 217.2 32.6% 17.5%;     /* Dark gray */
+    --secondary-foreground: 210 40% 98%; /* Light text */
+
+    --muted: 217.2 32.6% 17.5%;         /* Dark gray */
+    --muted-foreground: 215 20.2% 65.1%; /* Light gray text */
+
+    --accent: 217.2 32.6% 17.5%;        /* Dark gray */
+    --accent-foreground: 210 40% 98%;   /* Light text */
+
+    --destructive: 0 62.8% 30.6%;       /* Dark red */
+    --destructive-foreground: 210 40% 98%; /* Light text */
+
+    --success: 142 50% 25%;             /* Dark green */
+    --success-foreground: 210 40% 98%;  /* Light text */
+
+    --warning: 45 85% 50%;              /* Darker yellow */
+    --warning-foreground: 222.2 84% 4.9%; /* Dark text */
+
+    --border: 217.2 32.6% 17.5%;        /* Dark border */
+    --input: 217.2 32.6% 17.5%;         /* Dark input */
+    --ring: 214 52% 60%;                /* Brighter blue ring */
+
+    /* Medical specific colors - dark theme variants */
+    --medical-primary: 214 52% 45%;     /* Brighter blue */
+    --medical-secondary: 214 35% 35%;   /* Lighter dark blue */
+    --medical-accent: 214 45% 40%;      /* Lighter medium blue */
+    --medical-correct: 142 50% 45%;     /* Brighter green */
+    --medical-incorrect: 0 65% 65%;     /* Brighter red */
+    --medical-flag: 45 85% 70%;         /* Brighter yellow */
+
+    /* Gradients - dark theme */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--medical-accent)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
+    --gradient-medical: linear-gradient(135deg, hsl(var(--medical-primary)), hsl(var(--medical-accent)));
+
+    /* Shadows - dark theme */
+    --shadow-medical: 0 10px 30px -10px hsl(0 0% 0% / 0.5);
+    --shadow-card: 0 8px 25px -8px hsl(0 0% 0% / 0.3);
+    --shadow-button: 0 6px 15px hsl(var(--primary) / 0.6);
+
+    --sidebar-background: 222.2 84% 4.9%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 214 52% 45%;
+    --sidebar-primary-foreground: 222.2 84% 4.9%;
+    --sidebar-accent: 217.2 32.6% 17.5%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 214 52% 60%;
   }
 }
 
